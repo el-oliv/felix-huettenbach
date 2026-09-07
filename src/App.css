@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  background: #05060a;
+  color: #f4f5f7;
+  font-family: 'Inter', system-ui, sans-serif;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: inherit;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 40px;
+  mix-blend-mode: difference;
+}
+
+.nav-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.nav nav {
+  display: flex;
+  gap: 28px;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.nav nav a {
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.nav nav a:hover {
+  opacity: 1;
+}
+
+/* Scroll-scrubbed hero */
+.scroll-hero-wrap {
+  position: relative;
+  height: 400vh;
+}
+
+.scroll-hero-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.scroll-hero-frames {
+  position: absolute;
+  inset: 0;
+}
+
+.scroll-hero-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: opacity, transform;
+  filter: grayscale(0.55) contrast(1.2) brightness(0.85) saturate(1.1);
+}
+
+/* duotone tint (cyan shadows / violet highlights) over the real photos */
+.scroll-hero-duotone {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, #0a2a3d 0%, #05060a 45%, #2a0a3d 100%);
+  mix-blend-mode: color;
+  opacity: 0.85;
+}
+
+.scroll-hero-scanlines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(124, 247, 255, 0.05) 0px,
+    rgba(124, 247, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+}
+
+.scroll-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(124, 247, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 247, 255, 0.12) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+  -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 60%);
+}
+
+.scroll-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(5, 6, 10, 0.25) 0%,
+    rgba(5, 6, 10, 0.4) 55%,
+    rgba(5, 6, 10, 0.92) 100%
+  );
+}
+
+.scroll-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px 80px;
+  max-width: 900px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7cf7ff;
+  margin-bottom: 16px;
+}
+
+.scroll-hero-content h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  line-height: 0.95;
+  font-weight: 700;
+  margin: 0 0 20px;
+  background: linear-gradient(180deg, #ffffff 0%, #9fb8ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.scroll-hero-content p {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  color: #c7ccd8;
+  max-width: 480px;
+}
+
+.scroll-hint {
+  margin-top: 32px;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* Sections */
+.section {
+  padding: 140px 40px;
+  position: relative;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: block;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #7cf7ff;
+  margin-bottom: 24px;
+}
+
+.section h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.15;
+  font-weight: 600;
+  max-width: 800px;
+  margin: 0 0 48px;
+}
+
+.bio {
+  background: #05060a;
+}
+
+.bio-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.bio-grid img {
+  width: 100%;
+  border-radius: 4px;
+  filter: grayscale(0.3) contrast(1.05);
+}
+
+.bio-grid p {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #c7ccd8;
+}
+
+.ventures {
+  background: #0a0c14;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ventures-list {
+  list-style: none;
+  margin: 0 0 56px;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ventures-list li {
+  display: grid;
+  grid-template-columns: 100px 200px 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.venture-year {
+  color: #7cf7ff;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.venture-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.venture-desc {
+  color: #9aa0ae;
+  font-size: 0.95rem;
+}
+
+.ventures-media {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ventures-media img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 4px;
+  filter: grayscale(0.2);
+}
+
+.contact {
+  background: #05060a;
+  text-align: center;
+}
+
+.contact .section-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email-link {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1.6rem, 5vw, 3rem);
+  text-decoration: none;
+  border-bottom: 2px solid #7cf7ff;
+  padding-bottom: 6px;
+  margin-bottom: 40px;
+}
+
+.socials {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 80px;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.socials a {
+  text-decoration: none;
+  opacity: 0.75;
+}
+
+.socials a:hover {
+  opacity: 1;
+}
+
+.contact footer {
+  color: #666c78;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 800px) {
+  .bio-grid {
+    grid-template-columns: 1fr;
+  }
+  .ventures-list li {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .ventures-media {
+    grid-template-columns: 1fr;
+  }
+}
