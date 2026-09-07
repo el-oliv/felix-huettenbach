@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import { LANGUAGES, translations, detectInitialLanguage } from './translations'
 
 const HERO_FRAMES = [
   '/media/felix-skydiving.png',
@@ -9,23 +10,20 @@ const HERO_FRAMES = [
   '/media/felix-upsidedown.png',
 ]
 
-const VENTURES = [
-  {
-    year: '2017',
-    name: 'W8X',
-    desc: 'Fundador. Empresa de tecnología y entrenamiento de alto rendimiento.',
-  },
-  {
-    year: '2020',
-    name: 'Sameday Health',
-    desc: 'Fundador. Plataforma de salud y diagnóstico bajo demanda.',
-  },
-  {
-    year: '2018–2020',
-    name: 'MIT / UMass Boston',
-    desc: 'Guest Lecturer & Global Entrepreneur in Residence.',
-  },
-]
+function useLanguage() {
+  const [lang, setLang] = useState(detectInitialLanguage)
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem('lang', lang)
+    } catch {
+      // ignore storage errors
+    }
+    document.documentElement.lang = lang
+  }, [lang])
+
+  return [lang, setLang]
+}
 
 function useScrollProgress(ref) {
   const [progress, setProgress] = useState(0)
@@ -54,7 +52,7 @@ function useScrollProgress(ref) {
   return progress
 }
 
-function ScrollHero() {
+function ScrollHero({ t }) {
   const wrapRef = useRef(null)
   const progress = useScrollProgress(wrapRef)
 
@@ -89,67 +87,75 @@ function ScrollHero() {
         <div className="scroll-hero-scanlines" />
         <div className="scroll-hero-overlay" />
         <div className="scroll-hero-content" style={{ opacity: 1 - progress * 1.4 }}>
-          <span className="eyebrow">Founder · Investor · Adventurer</span>
+          <span className="eyebrow">{t.hero.eyebrow}</span>
           <h1>
             Felix
             <br />
             Huettenbach
           </h1>
-          <p>Construyendo el futuro, un riesgo calculado a la vez.</p>
-          <div className="scroll-hint">Scroll ⇩</div>
+          <p>{t.hero.tagline}</p>
+          <div className="scroll-hint">{t.hero.scroll} ⇩</div>
         </div>
       </div>
     </div>
   )
 }
 
-function Nav() {
+function LanguageSwitcher({ lang, setLang }) {
+  return (
+    <div className="lang-switcher">
+      {LANGUAGES.map((l) => (
+        <button
+          key={l}
+          type="button"
+          className={l === lang ? 'active' : ''}
+          onClick={() => setLang(l)}
+          aria-label={`Switch language to ${l}`}
+        >
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+function Nav({ t, lang, setLang }) {
   return (
     <header className="nav">
       <span className="nav-logo">FH</span>
       <nav>
-        <a href="#bio">Bio</a>
-        <a href="#ventures">Ventures</a>
-        <a href="#contact">Contacto</a>
+        <a href="#bio">{t.nav.bio}</a>
+        <a href="#ventures">{t.nav.ventures}</a>
+        <a href="#contact">{t.nav.contact}</a>
+        <LanguageSwitcher lang={lang} setLang={setLang} />
       </nav>
     </header>
   )
 }
 
-function Bio() {
+function Bio({ t }) {
   return (
     <section id="bio" className="section bio">
       <div className="section-inner">
-        <span className="section-label">01 — Bio</span>
-        <h2>
-          Fundador, inversor y aventurero. Honesto sobre el esfuerzo, el
-          sacrificio y la disciplina que exige el éxito real.
-        </h2>
+        <span className="section-label">{t.bio.label}</span>
+        <h2>{t.bio.heading}</h2>
         <div className="bio-grid">
-          <img src="/media/felix-tokyo.png" alt="Felix Huettenbach en Tokio" />
-          <p>
-            Nacido en Alemania, Felix estudió en la Technical University of
-            Munich, UC Berkeley y completó un programa de posgrado en el MIT
-            en Entrepreneurial Studies. Antes de fundar sus propias empresas,
-            trabajó en desarrollo de negocio, análisis de inversión en
-            Aurelius Equity Opportunities y como Chief of Staff en Quantgene,
-            una plataforma de detección temprana de cáncer con machine
-            learning.
-          </p>
+          <img src="/media/felix-tokyo.png" alt="Felix Huettenbach in Tokyo" />
+          <p>{t.bio.body}</p>
         </div>
       </div>
     </section>
   )
 }
 
-function Ventures() {
+function Ventures({ t }) {
   return (
     <section id="ventures" className="section ventures">
       <div className="section-inner">
-        <span className="section-label">02 — Ventures</span>
-        <h2>Lo que ha construido</h2>
+        <span className="section-label">{t.ventures.label}</span>
+        <h2>{t.ventures.heading}</h2>
         <ul className="ventures-list">
-          {VENTURES.map((v) => (
+          {t.ventures.items.map((v) => (
             <li key={v.name}>
               <span className="venture-year">{v.year}</span>
               <span className="venture-name">{v.name}</span>
@@ -159,20 +165,20 @@ function Ventures() {
         </ul>
         <div className="ventures-media">
           <img src="/media/felix-w8x.png" alt="Felix Huettenbach - W8X" />
-          <img src="/media/felix-waterfall.png" alt="Felix Huettenbach aventura" />
-          <img src="/media/felix-airplane.jpg" alt="Felix Huettenbach viajando" />
+          <img src="/media/felix-waterfall.png" alt="Felix Huettenbach adventure" />
+          <img src="/media/felix-airplane.jpg" alt="Felix Huettenbach travel" />
         </div>
       </div>
     </section>
   )
 }
 
-function Contact() {
+function Contact({ t }) {
   return (
     <section id="contact" className="section contact">
       <div className="section-inner">
-        <span className="section-label">03 — Contacto</span>
-        <h2>Hablemos.</h2>
+        <span className="section-label">{t.contact.label}</span>
+        <h2>{t.contact.heading}</h2>
         <a className="email-link" href="mailto:hello@felixhuettenbach.com">
           hello@felixhuettenbach.com
         </a>
@@ -188,13 +194,16 @@ function Contact() {
 }
 
 function App() {
+  const [lang, setLang] = useLanguage()
+  const t = translations[lang]
+
   return (
     <>
-      <Nav />
-      <ScrollHero />
-      <Bio />
-      <Ventures />
-      <Contact />
+      <Nav t={t} lang={lang} setLang={setLang} />
+      <ScrollHero t={t} />
+      <Bio t={t} />
+      <Ventures t={t} />
+      <Contact t={t} />
     </>
   )
 }
