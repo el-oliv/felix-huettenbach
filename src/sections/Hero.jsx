@@ -386,20 +386,17 @@ export function Hero({ t, lang, setLang, LANGUAGES }) {
             </ul>
           </nav>
           <div className="masthead-right">
-            <div className="lang-switcher">
-              {LANGUAGES.map((l) => (
-                <button key={l} type="button" className={l === lang ? 'active' : ''} onClick={() => setLang(l)} aria-label={`Switch language to ${l}`}>
-                  {l.toUpperCase()}
-                </button>
-              ))}
-            </div>
+            <LangSwitcher lang={lang} setLang={setLang} LANGUAGES={LANGUAGES} />
             <a href="https://youtube.com" className="garage-link" target="_blank" rel="noreferrer">
               <span aria-hidden="true">[ </span>{t.nav.garage}<span aria-hidden="true"> → ]</span>
             </a>
           </div>
-          <button type="button" className="burger" aria-label="Menu" onClick={() => setMenu(true)}>
-            <span /><span />
-          </button>
+          <div className="masthead-compact">
+            <LangSwitcher lang={lang} setLang={setLang} LANGUAGES={LANGUAGES} />
+            <button type="button" className="burger" aria-label="Menu" onClick={() => setMenu(true)}>
+              <span /><span />
+            </button>
+          </div>
         </header>
 
         <div className="hero-middle">
@@ -473,8 +470,20 @@ export function Hero({ t, lang, setLang, LANGUAGES }) {
         </div>
       </div>
 
-      {menu && <Sheet t={t} close={() => setMenu(false)} />}
+      {menu && <Sheet t={t} close={() => setMenu(false)} lang={lang} setLang={setLang} LANGUAGES={LANGUAGES} />}
     </section>
+  )
+}
+
+function LangSwitcher({ lang, setLang, LANGUAGES }) {
+  return (
+    <div className="lang-switcher" role="group" aria-label="Language">
+      {LANGUAGES.map((l) => (
+        <button key={l} type="button" className={l === lang ? 'active' : ''} onClick={() => setLang(l)} aria-label={`Switch language to ${l}`} aria-pressed={l === lang}>
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
   )
 }
 
@@ -502,7 +511,7 @@ function MetaRow({ enabled, delay, index, label }) {
   )
 }
 
-function Sheet({ t, close }) {
+function Sheet({ t, close, lang, setLang, LANGUAGES }) {
   const ref = useAnimated({ enabled: true, config: CFG.SHEET, mode: 'once', apply: (v, el) => (el.style.opacity = v) })
   const closeRef = useRef(null)
   useEffect(() => {
@@ -536,6 +545,9 @@ function Sheet({ t, close }) {
           <SheetItem key={label} href={href} label={label} delay={120 + i * 55} close={close} />
         ))}
       </nav>
+      <div className="sheet-lang">
+        <LangSwitcher lang={lang} setLang={setLang} LANGUAGES={LANGUAGES} />
+      </div>
     </div>
   )
 }

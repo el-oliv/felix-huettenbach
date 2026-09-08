@@ -91,6 +91,11 @@
 .lang-switcher button { font-size: 0.75rem; letter-spacing: 0.05em; padding: 4px 6px; opacity: 0.55; transition: opacity 0.2s; }
 .lang-switcher button:hover { opacity: 0.9; }
 .lang-switcher button.active { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+.masthead-compact { display: flex; align-items: center; gap: 1rem; }
+.masthead-compact .lang-switcher button { font-size: 0.8rem; padding: 6px 7px; opacity: 0.7; }
+.sheet-lang { display: flex; justify-content: center; padding: 1.5rem 0 0.5rem; }
+.sheet-lang .lang-switcher { gap: 1.25rem; }
+.sheet-lang .lang-switcher button { font-size: 1rem; letter-spacing: 0.15em; }
 .burger { padding: 0.5rem; margin-right: -0.5rem; display: flex; flex-direction: column; gap: 0.3125rem; }
 .burger span { display: block; width: 1.5rem; height: 1px; background: var(--foreground); }
 
@@ -152,7 +157,7 @@
   .hero-content { padding: 1.5rem; }
   .masthead-nav { display: block; }
   .masthead-right { display: flex; }
-  .burger { display: none; }
+  .masthead-compact { display: none; }
   .hero-figure-box, .hero-ramp { display: none; }
   .hero-middle { flex-direction: row; align-items: center; justify-content: space-between; }
   .identity { order: 0; gap: 6.0625rem; }
