@@ -1,19 +1,20 @@
 export const LANGUAGES = ['en', 'es', 'de']
 
+// src + the focal point (where the face is), as object-position, so the cover crop keeps it.
 const timelinePhotos = {
-  2012: '/media/felix-stairs.png',
-  2015: '/media/felix-highonlife.png',
-  2016: '/media/felix-waterfall.png',
-  2017: '/media/felix-w8x.png',
-  2018: '/media/felix-airplane.jpg',
-  2020: '/media/felix-rockclimbing.png',
-  2026: '/media/felix-tokyo.png',
+  2012: { src: '/media/felix-stairs.png', focus: '52% 50%' },
+  2015: { src: '/media/felix-helicopter.jpg', focus: '48% 38%' },
+  2016: { src: '/media/felix-waterfall.png', focus: '56% 88%' },
+  2017: { src: '/media/felix-w8x.png', focus: '50% 50%' },
+  2018: { src: '/media/felix-airplane.jpg', focus: '40% 50%' },
+  2020: { src: '/media/felix-rockclimbing.png', focus: '43% 52%' },
+  2026: { src: '/media/felix-tokyo.png', focus: '50% 45%' },
 }
 const timelineFrames = ['centre', 'side', 'centre', 'side', 'centre', 'side', 'centre']
 const timelineAlign = [null, 'right', null, 'left', null, 'right', null]
 
 const buildTimeline = (rows) =>
-  rows.map((r, i) => ({ ...r, frame: timelineFrames[i], align: timelineAlign[i], src: timelinePhotos[r.year] }))
+  rows.map((r, i) => ({ ...r, frame: timelineFrames[i], align: timelineAlign[i], ...timelinePhotos[r.year] }))
 
 export const translations = {
   en: {

@@ -119,7 +119,7 @@ function Row({ row, index, hovered, setHovered }) {
           </svg>
           <div className="tplate-fill" style={{ clipPath: `url(#plate-clip-${index})` }}>
             <div ref={slotRef} className="tplate-slot">
-              <img src={row.src} alt={`Felix Huettenbach — ${row.year}`} crossOrigin="anonymous" onError={(e) => (e.currentTarget.parentElement.classList.add('missing'))} />
+              <img src={row.src} alt={`Felix Huettenbach — ${row.year}`} style={{ objectPosition: row.focus || '50% 50%' }} crossOrigin="anonymous" onError={(e) => (e.currentTarget.parentElement.classList.add('missing'))} />
             </div>
           </div>
           <svg className="tplate-outline" viewBox="0 0 710.995 462.995" preserveAspectRatio="none" aria-hidden="true">
